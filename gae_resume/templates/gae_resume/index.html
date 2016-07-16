@@ -1,0 +1,166 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" ng-app="app">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ title }}</title>
+        <link href='{% static 'gae_resume/images/favicon.ico' %}' rel='icon' type='image/x-icon'/>
+
+        <meta content='{{ author }}' name='author'/>
+        <meta content='{{ title }}' property='og:site_name'/>
+        <meta name="theme-color" content="{{ primary_color_hex }}">
+
+        <meta content='A job application by {{ author }}' name='description'/>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="{% static 'gae_resume/css/bootstrap.min.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli:400,300|Roboto+Mono">
+		<link rel="stylesheet" href="{% static 'gae_resume/css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'gae_resume/css/kudos.css' %}">
+		<link rel="stylesheet" href="{% static 'gae_resume/css/timeline.css' %}">
+    </head>
+    <body>
+
+    <div id="menu">
+        <div id="nav-menu-title">
+            <div id="nav-menu-title-outer">
+                <div id="nav-menu-title-outer-div">
+                    <div id="nav-menu-inner">
+                        <a class="title" href="/">
+                            {{ title }}
+                        </a>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#why">Why</a></li>
+                            <li><a href="#me">About</a></li>
+                            <li><a href="#feedback">Kudos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="why" class="content">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <img class="dp img-circle img-responsive center-block" src="{% static 'gae_resume/images/avatar.png' %}"/>
+                </div>
+                <div class="col-md-5">
+                    <h1 class="page_heading">Hello</h1>
+                    <p class="question">Why do I want to join {{ company }}?</p>
+                    <p class="answer subtext">{% if why %}{{ why }}{% else %}Tell the company why do you want to work for this. This is important so be specific, how you can create value for them. Get it on!{% endif %}</p>
+                    <p class="question">Who am i?</p>
+                    <p class="answer subtext">{% if who %}{{ who }}. More about <a class="link" href="{{ homepage }}">my work</a>.{% else %}Describe about who you are, and how you would be helpful to the company. Your interest, passions, likes etc.{% endif %}</p>
+                </div>
+            </div>
+        </div>
+        <div id="me" class="content">
+          <div class="row">
+                <div class="col-lg-12">
+                  <h1 class="text-center page_heading">My Work</h1>
+                  <p class="subtext center-block text-center" style="max-width: 700px; margin-bottom: 100px;">
+                      {{ work_desc }}
+                  </p>
+                  <ul class="timeline">
+                    <li>
+                      <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="{% static 'gae_resume/images/project.png' %}" alt="">
+                      </div>
+                      <div class="timeline-panel">
+                        <div class="timeline-heading">
+                          <h4><a href="http://projectyello.appspot.com/" target="_blank">Project 1</a></h4>
+                          <h4 class="subheading">Subheading 1</h4>
+                        </div>
+                        <div class="timeline-body">
+                          <p class="text-muted">
+                            Subtext 1
+                        </div>
+                      </div>
+                    </li>
+                    <li class="timeline-inverted">
+                      <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="{% static 'gae_resume/images/project.png' %}" alt="">
+                      </div>
+                      <div class="timeline-panel">
+                        <div class="timeline-heading">
+                          <h4><a href="http://www.gophercon.in/2015/scholarship/" target="_blank">Project 2</a></h4>
+                          <h4 class="subheading">Subheading 2</h4>
+                        </div>
+                        <div class="timeline-body">
+                          <p class="text-muted">
+                            Subtext 2
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="{% static 'gae_resume/images/project.png' %}" alt="">
+                      </div>
+                      <div class="timeline-panel">
+                        <div class="timeline-heading">
+                          <h4><a href="https://gcdc2013-equilibrium.appspot.com/" target="_blank">Project 3</a></h4>
+                          <h4 class="subheading">Subheading 3</h4>
+                        </div>
+                        <div class="timeline-body">
+                          <p class="text-muted">
+                            Subtext 3
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+        </div>
+
+        <div id="feedback" ng-controller="MainCtrl" class="content">
+            <h1 class="page_heading text-center">Kudos</h1>
+            <p class="subtext text-center center-block" style="max-width: 700px; margin-bottom: 50px; clear: both;">
+Hey there! Did you liked this page? Let me know. </p><br/>
+            <div og-kudos id="kudos"
+                    og-kudos-count="{{ count }}"
+                    og-kudos-done="addCount()">
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="this">
+                <p class="subtext center-block text-center" style="max-width: 600px; margin-bottom: 50px; clear: both; display: block;">
+                    Everything here © <a href="{{ company_url }}" target="_blank">{{ company }}</a> and {{ author }}.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'gae_resume/js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'gae_resume/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'gae_resume/js/angular.min.js' %}"></script>
+    <script src="{% static 'gae_resume/js/angular-kudos.js' %}"></script>
+    <script src="{% static 'gae_resume/js/ngStorage.min.js' %}"></script>
+    <script src="{% static 'gae_resume/js/app.js' %}"></script>
+    <script type="application/javascript">
+      $(function() {
+        $('a[href*="#"]:not([href="#"])').click(function() {
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            if (target.length) {
+              $('html, body').animate({
+                scrollTop: target.offset().top - 150
+              }, 1000);
+              return false;
+            }
+          }
+        });
+      });
+    </script>
+    </body>
+</html>

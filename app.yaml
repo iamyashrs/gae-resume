@@ -1,0 +1,45 @@
+application: gae-resume
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+
+- url: /_ah/(mapreduce|queue|warmup|start|stop).*
+  script: gae_resume.wsgi.application
+  login: admin
+  secure: always
+
+- url: /_ah/internalupload.*
+  script: gae_resume.wsgi.application
+  secure: always
+
+- url: /static/admin/
+  static_dir: sitepackages/django/contrib/admin/static/admin/
+  secure: always
+
+- url: /static/gae_resume/
+  static_dir: gae_resume/static/gae_resume/
+  secure: always
+
+# Set Django admin to be login:admin as well as Django's is_staff restriction
+- url: /admin.*
+  script: gae_resume.wsgi.application
+  secure: always
+  login: admin
+
+- url: /.*
+  script: gae_resume.wsgi.application
+  secure: always
+
+skip_files:
+    - manage.py
+    - README.md
+    - install_deps
+    - requirements.txt
+    - sitepackages/google_appengine*
+    - \.storage.*
+    - \.git
+    - (.*)\.pyc
+    - \.idea

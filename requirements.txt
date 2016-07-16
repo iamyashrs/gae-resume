@@ -1,0 +1,9 @@
+git+https://github.com/potatolondon/djangae.git#egg=djangae
+django>=1.8,<1.10
+nose
+six
+
+# Uncomment these to use mapreduce or djangae.contrib.uniquetool (which uses mapreduce)
+# These are forks of Google's libraries, which contain various fixes and patches
+#git+https://github.com/potatolondon/appengine-pipelines.git
+#git+https://github.com/potatolondon/potato-mapreduce.git#egg=mapreduce
